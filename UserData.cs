@@ -2,14 +2,19 @@
 {
     public static class UserData
     {
-        private static User _testUser;
+        private static readonly User[] _testUsers =
+        {
+            new User("default_admin", "1234", "121216202", 1),
+            new User("student1", "123456", "121216202", 4),
+            new User("student2", "1234567", "121216202", 4)
+        };
 
-        public static User TestUser
+        public static User[] TestUsers
         {
             get
             {
                 ResetTestUserData();
-                return _testUser;
+                return _testUsers;
             }
             // ReSharper disable once ValueParameterNotUsed 
             // Public set not intended
@@ -18,7 +23,16 @@
 
         private static void ResetTestUserData()
         {
-            if (_testUser == null) _testUser = new User("admin", "1234", "121216202", 1);
+            //Ne jelaem takuv metod veche
+        }
+
+        public static User IsUserPassCorrect(string usernameI, string passwordI)
+        {
+            for (var i = 0; i < _testUsers.Length; i++)
+                if (usernameI.Equals(_testUsers[i].Username) && passwordI.Equals(_testUsers[i].Password))
+                    return _testUsers[i];
+            //Default return value.
+            return null;
         }
     }
 }
