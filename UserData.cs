@@ -2,23 +2,23 @@
 {
     public static class UserData
     {
-        private static User _defaultUser;
+        private static User _testUser;
 
-        public static User DefaultUser
+        public static User TestUser
         {
-            get 
-            { 
-                DefaultUserData();
-                return _defaultUser;
+            get
+            {
+                ResetTestUserData();
+                return _testUser;
             }
             // ReSharper disable once ValueParameterNotUsed 
             // Public set not intended
             set { }
         }
 
-        private static void DefaultUserData()
+        private static void ResetTestUserData()
         {
-            _defaultUser = new User("admin", "1234", "121216202", 1);
+            if (_testUser == null) _testUser = new User("admin", "1234", "121216202", 1);
         }
     }
 }

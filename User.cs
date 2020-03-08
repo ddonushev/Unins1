@@ -2,16 +2,17 @@
 {
     public class User
     {
-        private string username;
-        private string password;
-        private string facNumber;
-        private int userRole;
         public User(string usernameI, string passwordI, string facNumberI, int userRoleI)
         {
-            username = usernameI;
-            password = passwordI;
-            facNumber = facNumberI;
-            userRole = userRoleI;
+            Username = usernameI;
+            Password = passwordI;
+            FacNumber = facNumberI;
+            UserRole = userRoleI;
         }
+
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string FacNumber { get; set; }
+        public int UserRole { get; set; }
     }
 }

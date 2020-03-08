@@ -2,16 +2,18 @@
 
 namespace UserLogin
 {
-    class Program
+    public class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
-            LoginValidation loginValidation = new LoginValidation();
+            var loginValidation = new LoginValidation();
 
             if (loginValidation.ValidateUserInput())
             {
-                //izvejdane danni
-                Console.WriteLine(UserData.DefaultUser);
+                Console.WriteLine(UserData.TestUser.Username);
+                Console.WriteLine(UserData.TestUser.Password);
+                Console.WriteLine(UserData.TestUser.FacNumber);
+                Console.WriteLine(LoginValidation.CurrentUserRole);
             }
         }
     }
