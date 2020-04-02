@@ -1,4 +1,6 @@
-﻿namespace UserLogin
+﻿using System;
+
+namespace UserLogin
 {
     public class User
     {
@@ -8,11 +10,16 @@
             Password = passwordI;
             FacNumber = facNumberI;
             UserRole = userRoleI;
+            Created = DateTime.Now;
+            //Account will be active forever: 
+            Expires = DateTime.MaxValue;
         }
 
         public string Username { get; set; }
         public string Password { get; set; }
         public string FacNumber { get; set; }
         public int UserRole { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime Expires { get; set; }
     }
 }

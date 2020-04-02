@@ -4,14 +4,19 @@ namespace UserLogin
 {
     public class LoginValidation
     {
+        public delegate void ActionOnError(string errorMessage);
+
+        private readonly ActionOnError actionOnError;
+
         private readonly string password;
         private readonly string username;
         private string error_message;
 
-        public LoginValidation(string usernameI, string passwordI)
+        public LoginValidation(string usernameI, string passwordI, ActionOnError actionOnErrorI)
         {
             username = usernameI;
             password = passwordI;
+            actionOnError = actionOnErrorI;
         }
 
         public static UserRoles CurrentUserRole { get; private set; }
@@ -21,21 +26,21 @@ namespace UserLogin
             if (username.Length < 5)
             {
                 userI = null;
-                error_message = "The entered username is too short";
+                actionOnError("The entered username is too short");
                 return false;
             }
 
             if (password.Length < 5)
             {
                 userI = null;
-                error_message = "The entered password is too short";
+                actionOnError("The entered password is too short");
                 return false;
             }
 
             userI = UserData.IsUserPassCorrect(username, password);
             if (userI == null)
             {
-                error_message = "No match found for this password/username combination.";
+                actionOnError("No match found for this password/username combination.");
                 CurrentUserRole = UserRoles.Anonymous;
                 return false;
             }

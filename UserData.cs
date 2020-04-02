@@ -1,4 +1,6 @@
-﻿namespace UserLogin
+﻿using System;
+
+namespace UserLogin
 {
     public static class UserData
     {
@@ -24,15 +26,35 @@
         private static void ResetTestUserData()
         {
             //Ne jelaem takuv metod veche
+            foreach (var user in _testUsers)
+            {
+                user.Created = DateTime.Now;
+                user.Expires = DateTime.MaxValue;
+            }
         }
 
         public static User IsUserPassCorrect(string usernameI, string passwordI)
         {
-            for (var i = 0; i < _testUsers.Length; i++)
-                if (usernameI.Equals(_testUsers[i].Username) && passwordI.Equals(_testUsers[i].Password))
-                    return _testUsers[i];
+            foreach (var testUser in _testUsers)
+                if (usernameI.Equals(testUser.Username) && passwordI.Equals(testUser.Password))
+                    return testUser;
             //Default return value.
             return null;
+        }
+
+        public static void SetUserActiveTo(string usernameI, DateTime expiresI)
+        {
+            foreach (var user in _testUsers)
+                if (user.Username.Equals(usernameI))
+                    user.Expires = expiresI;
+        }
+
+        public static void AssignUserRole(string usernameI, UserRoles roleI)
+        {
+            foreach (var user in _testUsers)
+                if (user.Username.Equals(usernameI))
+                    //UserRoles - Enum - casted to int 
+                    user.UserRole = (int) roleI;
         }
     }
 }
