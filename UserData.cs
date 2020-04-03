@@ -1,41 +1,39 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace UserLogin
 {
     public static class UserData
     {
-        private static readonly User[] _testUsers =
-        {
-            new User("default_admin", "1234", "121216202", 1),
-            new User("student1", "123456", "121216202", 4),
-            new User("student2", "1234567", "121216202", 4)
-        };
+        private static List<User> _testUsers;
 
-        public static User[] TestUsers
+        public static List<User> TestUser
         {
             get
             {
                 ResetTestUserData();
                 return _testUsers;
             }
-            // ReSharper disable once ValueParameterNotUsed 
-            // Public set not intended
             set { }
         }
 
         private static void ResetTestUserData()
         {
-            //Ne jelaem takuv metod veche
-            foreach (var user in _testUsers)
-            {
-                user.Created = DateTime.Now;
-                user.Expires = DateTime.MaxValue;
-            }
+            // if (_testUsers == null)
+            // {
+            _testUsers = new List<User>();
+            var user1 = new User("default_admin", "12345678", "121216202", 1);
+            var user2 = new User("student1", "123456", "121216202", 4);
+            var user3 = new User("student2", "1234567", "121216202", 4);
+            _testUsers.Add(user1);
+            _testUsers.Add(user2);
+            _testUsers.Add(user3);
+            // }
         }
 
         public static User IsUserPassCorrect(string usernameI, string passwordI)
         {
-            foreach (var testUser in _testUsers)
+            foreach (var testUser in TestUser)
                 if (usernameI.Equals(testUser.Username) && passwordI.Equals(testUser.Password))
                     return testUser;
             //Default return value.
@@ -44,17 +42,23 @@ namespace UserLogin
 
         public static void SetUserActiveTo(string usernameI, DateTime expiresI)
         {
-            foreach (var user in _testUsers)
+            foreach (var user in TestUser)
                 if (user.Username.Equals(usernameI))
+                {
                     user.Expires = expiresI;
+                    Logger.LogActivity("Account expiration changed for " + user.Username);
+                }
         }
 
         public static void AssignUserRole(string usernameI, UserRoles roleI)
         {
-            foreach (var user in _testUsers)
+            foreach (var user in TestUser)
                 if (user.Username.Equals(usernameI))
-                    //UserRoles - Enum - casted to int 
+                {
+                    //UserRoles - Enum - casted to int a
                     user.UserRole = (int) roleI;
+                    Logger.LogActivity("Account role changed for " + user.Username);
+                }
         }
     }
 }

@@ -6,10 +6,12 @@ namespace UserLogin
     {
         public delegate void ActionOnError(string errorMessage);
 
+        private static string username;
+        public static string currentUserUsername = username;
+
         private readonly ActionOnError actionOnError;
 
         private readonly string password;
-        private readonly string username;
         private string error_message;
 
         public LoginValidation(string usernameI, string passwordI, ActionOnError actionOnErrorI)
@@ -48,6 +50,7 @@ namespace UserLogin
             CurrentUserRole = (UserRoles) userI.UserRole;
             error_message = "Login successful.";
             Console.WriteLine(error_message);
+            Logger.LogActivity("Login successful.");
             return true;
         }
     }

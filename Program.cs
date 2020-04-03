@@ -22,6 +22,9 @@ namespace UserLogin
                         Console.WriteLine("0: Exit");
                         Console.WriteLine("1: Change user role");
                         Console.WriteLine("2: Set user account expiration");
+                        Console.WriteLine("3: See list of all users");
+                        Console.WriteLine("4: Check activity log");
+
                         var adminOptionInput = Console.ReadLine();
                         switch (Convert.ToInt32(adminOptionInput))
                         {
@@ -44,6 +47,20 @@ namespace UserLogin
                                     "Please enter the date then account should expire on (01.01.2019 00:00:00):");
                                 var expirationI = Console.ReadLine();
                                 UserData.SetUserActiveTo(usernameExpirationChange, Convert.ToDateTime(expirationI));
+                                break;
+                            case 3:
+                                Console.WriteLine(
+                                    "List of all users: WIP WIP WIP");
+                                break;
+                            case 4:
+                                Console.WriteLine(
+                                    "Activity log:");
+                                Logger.seeLog();
+                                break;
+                            case 5:
+                                Console.WriteLine(
+                                    "Current activities:");
+                                Logger.GetCurrentSessionActivities();
                                 break;
                             default:
                                 Console.WriteLine("You did not choose a valid option.");
